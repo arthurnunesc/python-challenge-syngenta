@@ -1,20 +1,23 @@
 def get_parsed_days(info_to_be_splitted):
-    days_to_be_counted = []
+    parsed_days = []
     day_of_the_week = []
 
     for each in info_to_be_splitted[1:]:
         day_of_the_week = each.split("(")
         day_of_the_week[1] = day_of_the_week[1].replace(")", "")
-        days_to_be_counted.append(day_of_the_week[1])
+        parsed_days.append(day_of_the_week[1])
 
-    return days_to_be_counted
+    return parsed_days
 
 
-def get_cheapest_hotel(info):  # DO NOT change the function's name
+def get_cheapest_hotel(info):
     cheapest_hotel = "cheapest_hotel_name"
 
     weekdays = ["mon", "tues", "wed", "thur", "fri"]
     weekend = ["sat", "sun"]
+
+    split_info = info.replace(":", ",")
+    split_info = split_info.split(", ")
 
     lakewood = {
         "name": "Lakewood",
@@ -44,15 +47,10 @@ def get_cheapest_hotel(info):  # DO NOT change the function's name
         "total_cost": 0
     }
 
-    split_info = info.replace(":", ",")
-    split_info = split_info.split(", ")
-    print(split_info)
-
     if split_info[0] == "Regular":
         info_to_be_analysed = get_parsed_days(split_info)
         for day in info_to_be_analysed:
             if day in weekdays:
-                print
                 lakewood["total_cost"] += lakewood["normal_rate"]
                 bridgewood["total_cost"] += bridgewood["normal_rate"]
                 ridgewood["total_cost"] += ridgewood["normal_rate"]
